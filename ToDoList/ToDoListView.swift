@@ -11,21 +11,13 @@ struct ToDoListView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section {
+                ForEach(0..<100, id: \.self) { number in
                     NavigationLink {
-                        DetailView()
+                        DetailView(passedValue: "Item \(number)")
                     } label: {
-                        Text("Winter")
+                        Text ("Item \(number)")
                     }
-                    Text("Summer")
-                } header: {
-                    Text("Breaks")
-                }
-                Section {
-                    Text("Spring")
-                    Text("Fall")
-                } header: {
-                    Text("Semesters")
+                    
                 }
             }
             .navigationTitle("School Year")

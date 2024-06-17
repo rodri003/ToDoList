@@ -10,16 +10,28 @@ import SwiftUI
 struct ToDoListView: View {
     var body: some View {
         NavigationStack {
-            VStack {
-                NavigationLink {
-                    DetailView()
-                } label: {
-                    Image(systemName: "eye")
-                    Text("Show the New View!")
+            List {
+                Section {
+                    NavigationLink {
+                        DetailView()
+                    } label: {
+                        Text("Winter")
+                    }
+                    Text("Summer")
+                } header: {
+                    Text("Breaks")
                 }
-                .buttonStyle(.borderedProminent)
+                Section {
+                    Text("Spring")
+                    Text("Fall")
+                } header: {
+                    Text("Semesters")
+                }
             }
-            .padding()
+            .navigationTitle("School Year")
+            .navigationBarTitleDisplayMode(.automatic)
+            .listStyle(.plain
+            )
         }
     }
 }

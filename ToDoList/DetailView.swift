@@ -28,7 +28,7 @@ struct DetailView: View {
             }
             .buttonStyle(.borderedProminent)
         }
-        .navigationBarBackButtonHidden()
+//        .navigationBarBackButtonHidden()
         .padding()
     }
 }

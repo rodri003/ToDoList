@@ -23,6 +23,7 @@ struct ToDoListView: View {
                     } label: {
                         Text(toDo)
                     }
+                    .font(.title2)
                 }
             }
             .navigationTitle("To Do List")

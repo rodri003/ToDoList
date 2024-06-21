@@ -9,38 +9,33 @@ import SwiftUI
 
 struct DetailView: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var toDo = ""
-    @State private var remindeerIsOn = false
-    @State private var dueDate = Date.now + (60*60*24)
-    @State private var notes = ""
-    @State private var isCompleted = false
-    
-    var passedValue: String
+    @EnvironmentObject var toDosVM: ToDosViewModel  // Accesses the envrionment object created in ToDoListApp
+    @State var toDo: ToDo // used to get information from the View and is ToDo the struct. Do not make private
     
     var body: some View {
         List {
-            TextField("Enter To Do Here", text: $toDo)
+            TextField("Enter To Do Here", text: $toDo.item)
                 .font(.title)
                 .textFieldStyle(.roundedBorder)
                 .padding(.vertical)
                 .listRowSeparator(.hidden)
             
-            Toggle("Set Reminder:", isOn: $remindeerIsOn)
+            Toggle("Set Reminder:", isOn: $toDo.remindeerIsOn)
                 .padding(.top)
                 .listRowSeparator(.hidden)
             
-            DatePicker("Date", selection: $dueDate)
+            DatePicker("Date", selection: $toDo.dueDate)
                 .listRowSeparator(.hidden)
                 .padding(.bottom)
-                .disabled(!remindeerIsOn)
+                .disabled(!toDo.remindeerIsOn)
             
             Text("Notes:")
                 .padding(.top)
-            TextField("Notes", text: $notes, axis: .vertical)
+            TextField("Notes", text: $toDo.notes, axis: .vertical)
                 .textFieldStyle(.roundedBorder)
                 .listRowSeparator(.hidden)
             
-            Toggle("Completed:", isOn: $isCompleted)
+            Toggle("Completed:", isOn: $toDo.isCompleted)
                 .padding(.top)
                 .listRowSeparator(.hidden)
                 .listRowSeparator(.hidden)
@@ -66,6 +61,7 @@ struct DetailView: View {
 
 #Preview {
     NavigationStack {
-        DetailView(passedValue: "Item 1")
+        DetailView(toDo: ToDo())
+            .environmentObject(ToDosViewModel())  // need to add this 
     }
 }

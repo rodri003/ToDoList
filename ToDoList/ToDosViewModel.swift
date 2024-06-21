@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+class ToDosViewModel: ObservableObject {
+    @Published var toDos: [ToDo] = []
+}

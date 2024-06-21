@@ -37,7 +37,7 @@ struct ToDoListView: View {
             }
             .sheet(isPresented: $sheetIsPresented, content: {
                 NavigationStack {
-                    DetailView(toDo: ToDo()) // new value
+                    DetailView(toDo: ToDo(), newToDo: true) // new value
                 }
             })
 //            .fullScreenCover(isPresented: $sheetIsPresented, content: {

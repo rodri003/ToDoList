@@ -9,21 +9,16 @@ import SwiftUI
 
 struct ToDoListView: View {
     @State private var sheetIsPresented = false
-    
-    var toDos = ["Learn Swift",
-                 "Build Apps",
-                 "Change the World",
-                 "Bring the Awesome",
-                 "Take a Vacation"]
+    @EnvironmentObject var toDosVM: ToDosViewModel  // Accesses the envrionment object created in ToDoListApp
     
     var body: some View {
         NavigationStack {
             List {
-                ForEach(toDos, id: \.self) { toDo in
+                ForEach(toDosVM.toDos) { toDo in
                     NavigationLink {
-                        DetailView(passedValue: toDo)
+                       DetailView(toDo: toDo)
                     } label: {
-                        Text(toDo)
+                        Text(toDo.item)
                     }
                     .font(.title2)
                 }
@@ -42,7 +37,7 @@ struct ToDoListView: View {
             }
             .sheet(isPresented: $sheetIsPresented, content: {
                 NavigationStack {
-                    DetailView(passedValue: "")
+                    DetailView(toDo: ToDo()) // new value
                 }
             })
 //            .fullScreenCover(isPresented: $sheetIsPresented, content: {
@@ -54,6 +49,7 @@ struct ToDoListView: View {
 
 #Preview {
     ToDoListView()
+        .environmentObject(ToDosViewModel())
 }
 
 

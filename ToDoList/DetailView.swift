@@ -11,7 +11,7 @@ struct DetailView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var toDosVM: ToDosViewModel  // Accesses the envrionment object created in ToDoListApp
     @State var toDo: ToDo // used to get information from the View and is ToDo the struct. Do not make private
-    var newToDo = false
+
     
     var body: some View {
         List {
@@ -51,7 +51,7 @@ struct DetailView: View {
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Save") {
-                    toDosVM.saveToDo(toDo: toDo, newToDo: newToDo)
+                    toDosVM.saveToDo(toDo: toDo)
                     dismiss()
                 }
             }

@@ -25,10 +25,10 @@ struct ToDoListView: View {
                 // Add functionality to delete an item
                 // Traditional calls are below
                                 .onDelete(perform: { indexSet in
-                                    toDosVM.delete(indexSet: indexSet)
+                                    toDosVM.deleteToDo(indexSet: indexSet)
                                 })
                                 .onMove(perform: { fromOffsets, toOffset in
-                                    toDosVM.move(fromOffsets: fromOffsets, toOffset: toOffset)
+                                    toDosVM.moveToDo(fromOffsets: fromOffsets, toOffset: toOffset)
                                 })
                 // Shorhand calls to .onDelete and .onMove here
 //                .onDelete(perform: toDosVM.delete)
@@ -51,7 +51,7 @@ struct ToDoListView: View {
             }
             .sheet(isPresented: $sheetIsPresented, content: {
                 NavigationStack {
-                    DetailView(toDo: ToDo(), newToDo: true) // new value
+                    DetailView(toDo: ToDo()) // new value
                 }
             })
             //            .fullScreenCover(isPresented: $sheetIsPresented, content: {

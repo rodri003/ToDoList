@@ -6,8 +6,10 @@
 //
 
 import Foundation
-struct ToDo: Identifiable {
+struct ToDo: Identifiable, Codable {
     //    var id: ObjectIdentifier // Created by fixing fix on the error. It created a variable but a better practice is a constant
+    // Codable adds extra capability to that we can save the data
+    // Standard Swift Types - e.g., String, Int, Double, Bool, and Arrays of those values- are already codable.
 //    let id = UUID().uuidString // Let Swift assing a unique ObjectIndentifier using UUID().uuid String ensures that it is a string
     var id: String?
     var item = ""

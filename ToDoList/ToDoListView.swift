@@ -16,22 +16,36 @@ struct ToDoListView: View {
             List {
                 ForEach(toDosVM.toDos) { toDo in
                     NavigationLink {
-                       DetailView(toDo: toDo)
+                        DetailView(toDo: toDo)
                     } label: {
                         Text(toDo.item)
                     }
                     .font(.title2)
                 }
+                // Add functionality to delete an item
+                // Traditional calls are below
+                                .onDelete(perform: { indexSet in
+                                    toDosVM.delete(indexSet: indexSet)
+                                })
+                                .onMove(perform: { fromOffsets, toOffset in
+                                    toDosVM.move(fromOffsets: fromOffsets, toOffset: toOffset)
+                                })
+                // Shorhand calls to .onDelete and .onMove here
+//                .onDelete(perform: toDosVM.delete)
+//                .onMove(perform: toDosVM.move)
             }
             .navigationTitle("To Do List")
             .navigationBarTitleDisplayMode(.automatic)
             .listStyle(.plain)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    EditButton()
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         sheetIsPresented.toggle()
                     }, label: {
-                       Image(systemName: "plus")
+                        Image(systemName: "plus")
                     })
                 }
             }
@@ -40,9 +54,9 @@ struct ToDoListView: View {
                     DetailView(toDo: ToDo(), newToDo: true) // new value
                 }
             })
-//            .fullScreenCover(isPresented: $sheetIsPresented, content: {
-//                DetailView(passedValue: "")
-//            })
+            //            .fullScreenCover(isPresented: $sheetIsPresented, content: {
+            //                DetailView(passedValue: "")
+            //            })
         }
     }
 }

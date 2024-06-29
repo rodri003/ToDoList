@@ -11,6 +11,7 @@ class ToDosViewModel: ObservableObject {
     @Published var toDos: [ToDo] = []
     
     init () {
+//        purgeData()  / Use to purge persistent data from live View. Change "toDos" to appropriate name that you're using
         loadData()
     }
     func saveToDo(toDo: ToDo) {
@@ -51,6 +52,16 @@ class ToDosViewModel: ObservableObject {
     func saveData() {
         let path = URL.documentsDirectory.appending(component: "toDos")
         let data = try? JSONEncoder().encode(toDos)  // try? means if error is thrown, data = nil
+        do {
+            try data?.write(to: path)
+        } catch {
+            print("😡 ERROR: Could not save data \(error.localizedDescription)")
+        }
+    }
+    
+    func purgeData() {
+        let path = URL.documentsDirectory.appending(component: "toDos")
+        let data = try? JSONEncoder().encode("")
         do {
             try data?.write(to: path)
         } catch {
